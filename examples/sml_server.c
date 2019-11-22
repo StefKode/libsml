@@ -111,14 +111,14 @@ void transport_receiver(unsigned char *buffer, size_t buffer_len) {
 				}
 				if (entry->value->type == SML_TYPE_OCTET_STRING) {
 					char *str;
-					printf("%d-%d:%d.%d.%d*%d#%s#\n",
+					printf("%d-%d:%d.%d.%d*%d#%s# ",
 						entry->obj_name->str[0], entry->obj_name->str[1],
 						entry->obj_name->str[2], entry->obj_name->str[3],
 						entry->obj_name->str[4], entry->obj_name->str[5],
 						sml_value_to_strhex(entry->value, &str, true));
 					free(str);
 				} else if (entry->value->type == SML_TYPE_BOOLEAN) {
-					printf("%d-%d:%d.%d.%d*%d#%s#\n",
+					printf("%d-%d:%d.%d.%d*%d#%s# ",
 						entry->obj_name->str[0], entry->obj_name->str[1],
 						entry->obj_name->str[2], entry->obj_name->str[3],
 						entry->obj_name->str[4], entry->obj_name->str[5],
@@ -139,7 +139,7 @@ void transport_receiver(unsigned char *buffer, size_t buffer_len) {
 					if (entry->unit &&  // do not crash on null (unit is optional)
 						(unit = dlms_get_unit((unsigned char) *entry->unit)) != NULL)
 						printf("%s", unit);
-					printf("\n");
+					printf(" ");
 					// flush the stdout puffer, that pipes work without waiting
 					fflush(stdout);
 				}
@@ -148,6 +148,7 @@ void transport_receiver(unsigned char *buffer, size_t buffer_len) {
 				exit(0); // processed first message - exit
 		}
 	}
+	printf("\n");
 
 	// free the malloc'd memory
 	sml_file_free(file);
