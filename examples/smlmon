@@ -1,5 +1,5 @@
 #!/bin/bash
-sml_server /dev/ttyUSB0 | while read line;
+sml_server /dev/ttyS0 | while read line;
 do
 	ptot=$(echo "$line" | sed -e 's/^.*1-0:1.8.0.255#\([0-9]*\.[0-9]*\)#Wh.*$/\1/')
 	pmon=$(echo "$line" | sed -e 's/^.*1-0:16.7.0.255#\([0-9]*\.[0-9]*\)#W.*$/\1/')
